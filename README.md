@@ -1,5 +1,9 @@
 Download the s0m3poc to your local computer and use `python s0m3poc.py` to start use it.
 
+**Please config your account in s0m3poc.py first**:
+
+![](http://7xp22c.com1.z0.glb.clouddn.com/note.PNG)
+
 You can type in help to look for help.
 
 ![](http://7xp22c.com1.z0.glb.clouddn.com/help.PNG)
