@@ -87,9 +87,9 @@ class s0m3poc(object):
         elif name == "facets":
             self.facets = value
         elif name == "port":
-            if value == "True":
+            if value == "True" or value == "true":
                 self.port = True
-            elif value == "False":
+            elif value == "False" or value == "false":
                 self.port = False
             else:
                 self.output("[!] page should be True or False")
@@ -114,9 +114,20 @@ class s0m3poc(object):
         else:
             if self.query:
                 z = zoomeye.Zoomeye("wangjinzhenh@163.com", "waxh1314!")
-                z.run(self.poc.exploit, self.query, pages = self.pages, facets = self.facets, port = self.port)
+                try:
+                    z.run(self.poc.exploit, self.query, pages = self.pages, facets = self.facets, port = self.port)
+                    while z.isReady():
+                        time.sleep(1)
+                except KeyboardInterrupt,e:
+                    self.output("[!] user abort! Waiting for payload to stop...")
+                    z.Done = True
+                    while not z.queue.empty():
+                        tmp = z.queue.get()
             elif self.target:
-                self.poc.exploit(self.target)
+                try:
+                    self.poc.exploit(self.target)
+                except KeyboardInterrupt,e:
+                    self.output("[!] user abort!")
             else:
                 self.output("[!] please config target or zoomeye query first!")
 
