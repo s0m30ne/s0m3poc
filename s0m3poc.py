@@ -38,25 +38,35 @@ class s0m3poc(object):
 
     def help(self):
         print """
-        You can choose your poc to test some targets through this little tool.
-        These targets can be either a single ip(url) or some ips you searched through zoomeye.
-        
-        If you want to search through zoomeye, you can use it just like below:
-        set query <query> : to set the query you want to search through zoomeye.
-        set pages <pagenum> : to set how many pages you want to serch. Default is 10.
-        set facets <facets> : to set what do you want to return. Default is only IP.
-        set port <True or False> : to set wehther you want to return a ip with port num, for example: 123.123.123.123:22.
-        
-        If you want to test for a single ip or url, you can set it like below:
-        set target <target> to set the ip you want to test.
-        
-        set payload <payload> : select which poc file you want to use.
-
-        show options : show what you have configured.
-        show payloads : show what payload do you have.
-        exploit : begin to test your targets.
-
-        exit : quit
+  ---------------------------------------------------------------------------
+  | You can choose your poc to test some targets through this little tool.  |
+  | These targets can be either a single ip(url) or some ips(urls) searched |
+  | through zoomeye.                                                        |
+  |-------------------------------------------------------------------------|
+  | If you want to search targets through zoomeye:                          |
+  |-------------------------------------------------------------------------|
+  | set query <query>        | set the query would search through zoomeye   |
+  |-------------------------------------------------------------------------|
+  | set pages <pagenum>      | set the page num would serch, default is 10. |
+  | set facets <facets>      | set return columns. Default is only IP.      |
+  | set port <True or False> | set reruen ip with or without port num.      |
+  |                          | for example: 127.0.0.1:22. Default is False  |
+  |-------------------------------------------------------------------------|
+  | If you want to test for a single ip or url:                             |
+  |-------------------------------------------------------------------------|
+  | set target <target>      | set the ip or url to test                    |
+  |-------------------------------------------------------------------------|
+  |-------------------------------------------------------------------------|
+  | set payload <payload>    | select which poc file to use.                |
+  |-------------------------------------------------------------------------|
+  | show options             | show what have been configured.              |
+  |-------------------------------------------------------------------------|
+  | show payloads            | show all payloads that can be used.          |
+  |-------------------------------------------------------------------------|
+  | exploit                  | begin to test targets.                       |
+  |-------------------------------------------------------------------------|
+  | exit                     | exit the program.                            |
+  ---------------------------------------------------------------------------
         """
 
     def showOptions(self):
