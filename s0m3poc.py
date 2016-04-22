@@ -107,11 +107,13 @@ class s0m3poc(object):
             self.target = value
         elif name == "payload":
             if os.path.exists("./payloads/%s.py" % value):
-                self.payload = value
                 payload_path = "%s/payloads/" % os.getcwd()
                 if not payload_path in sys.path:
                     sys.path.append(payload_path)
                 if not self.payload in sys.modules:
+                    if self.payload:
+                        sys.modules.remove(self.payload)
+                    self.payload = value
                     self.poc = __import__(self.payload)
                 else:
                     self.output("[!] please do not use system module name as your payload name!")
