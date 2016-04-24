@@ -93,7 +93,7 @@ class s0m3poc(object):
             if isinstance(value, int):
                 self.pages = value
             else:
-                self,output("[!] pages should be a num!")
+                self.output("[!] pages should be a num!")
         elif name == "facets":
             self.facets = value
         elif name == "port":
