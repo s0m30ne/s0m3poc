@@ -90,9 +90,9 @@ class s0m3poc(object):
         if name == "query":
             self.query = value
         elif name == "pages":
-            if isinstance(value, int):
-                self.pages = value
-            else:
+            try:
+                self.pages = int(value)
+            except:
                 self.output("[!] pages should be a num!")
         elif name == "facets":
             self.facets = value
