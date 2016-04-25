@@ -153,18 +153,3 @@ class Zoomeye(object):
             return True
         else:
             return False
-
-"""
-def test(zoo):
-    while zoo.isReady():
-        if not zoo.queue.empty():
-            print "hello: %s" % zoo.queue.get()['ip']
-
-if __name__ == '__main__':
-    z = Zoomeye('wangjinzhenh@163.com', 'waxh1314!')
-    z.run(test, "port:80", pages = 100)
-
-    #z.search("port:80", search_type = "web")
-    #while not z.queue.empty():
-    #    print "hello: %s" % z.queue.get()['site']
-"""
