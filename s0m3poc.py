@@ -17,6 +17,7 @@ class s0m3poc(object):
         self.port = False
         self.payload = ''
         self.poc = None
+        self.search_type = 'host'
 
     def output(self, content):
         print "-- %s" % content
@@ -56,6 +57,7 @@ class s0m3poc(object):
   |-------------------------------------------------------------------------|
   | set target <target>      | set the ip or url to test                    |
   |-------------------------------------------------------------------------|
+  | set search_type web|host | select to search hosts or websites           |
   |-------------------------------------------------------------------------|
   | set payload <payload>    | select which poc file to use.                |
   |-------------------------------------------------------------------------|
@@ -76,6 +78,7 @@ class s0m3poc(object):
         self.output("port : %s" % self.port)
         self.output("target : %s" % self.target)
         self.output("payload : %s" % self.payload)
+        self.output("search_type : %s" % self.search_type)
 
     def showPayloads(self):
         payload_path = "%s/payloads/" % os.getcwd()
@@ -105,15 +108,18 @@ class s0m3poc(object):
                 self.output("[!] page should be True or False")
         elif name == "target":
             self.target = value
+        elif name == "search_type":
+            if value == "host" or value == "web":
+                self.search_type = value
+            else:
+                self.output("[!] You can only set search_type with host or web")
         elif name == "payload":
             if os.path.exists("./payloads/%s.py" % value):
+                self.payload = value
                 payload_path = "%s/payloads/" % os.getcwd()
                 if not payload_path in sys.path:
                     sys.path.append(payload_path)
                 if not self.payload in sys.modules:
-                    if self.payload:
-                        sys.modules.remove(self.payload)
-                    self.payload = value
                     self.poc = __import__(self.payload)
                 else:
                     self.output("[!] please do not use system module name as your payload name!")
@@ -125,9 +131,9 @@ class s0m3poc(object):
             self.output("[!] please config the payload first!")
         else:
             if self.query:
-                z = zoomeye.Zoomeye("your email", "password")
+                z = zoomeye.Zoomeye("wangjinzhenh@163.com", "waxh1314!")
                 try:
-                    z.run(self.poc.exploit, self.query, pages = self.pages, facets = self.facets, port = self.port)
+                    z.run(self.poc.exploit, self.query, pages = self.pages, facets = self.facets, port = self.port, search_type = self.search_type)
                     while z.isReady():
                         time.sleep(1)
                 except KeyboardInterrupt,e:
@@ -153,8 +159,8 @@ class s0m3poc(object):
                 self.showOptions()
             elif cmd == "show payloads":
                 self.showPayloads()
-            elif re.search(r'set (?:query|pages|facets|port|target|payload) .+', cmd):
-                paraList = re.findall(r'set (query|pages|facets|port|target|payload) (.+)', cmd)
+            elif re.search(r'set (?:query|pages|facets|port|target|payload|search_type) .+', cmd):
+                paraList = re.findall(r'set (query|pages|facets|port|target|payload|search_type) (.+)', cmd)
                 self.setPara(paraList[0][0], paraList[0][1])
             elif cmd == "exploit":
                 self.exploit()
