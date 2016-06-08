@@ -131,7 +131,7 @@ class s0m3poc(object):
             self.output("[!] please config the payload first!")
         else:
             if self.query:
-                z = zoomeye.Zoomeye("wangjinzhenh@163.com", "waxh1314!")
+                z = zoomeye.Zoomeye("YOUR EMAIL", "YOUR PASSWORD")
                 try:
                     z.run(self.poc.exploit, self.query, pages = self.pages, facets = self.facets, port = self.port, search_type = self.search_type)
                     while z.isReady():
