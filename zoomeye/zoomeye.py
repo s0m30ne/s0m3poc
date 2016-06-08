@@ -12,6 +12,7 @@ from Queue import Queue
 from urllib import quote
 import threading
 import time
+import certifi
 
 class Zoomeye(object):
     """Class to search the web space using zoomeye."""
@@ -30,7 +31,8 @@ class Zoomeye(object):
         user_auth = '{"username": "%s","password": "%s"}' % (self.USERNAME, self.PASSWORD)
         b = StringIO.StringIO()
         c = pycurl.Curl()
-        c.setopt(pycurl.URL, "http://api.zoomeye.org/user/login")
+        c.setopt(pycurl.CAINFO, certifi.where())
+        c.setopt(pycurl.URL, "https://api.zoomeye.org/user/login")
         c.setopt(pycurl.WRITEFUNCTION, b.write)
         c.setopt(pycurl.FOLLOWLOCATION, 1)
         c.setopt(pycurl.CUSTOMREQUEST, "POST")
@@ -57,7 +59,7 @@ class Zoomeye(object):
         query = quote(query)
         for page in range(1, pages+1):
             if not self.Done:
-                url = "http://api.zoomeye.org/%s/search?query=%s&page=%s&facets=%s" % (search_type, query, page, facets)
+                url = "https://api.zoomeye.org/%s/search?query=%s&page=%s&facets=%s" % (search_type, query, page, facets)
                 self._getInfo(url)
                 self._manageOutput(facets, port)
             else:
@@ -104,7 +106,7 @@ class Zoomeye(object):
             print "[!]please config your API_TOKEN using function getToken() first"
             sys.exit()
 
-        while not self._getInfo("http://api.zoomeye.org/resources-info"):
+        while not self._getInfo("https://api.zoomeye.org/resources-info"):
             pass
 
         return self.info
@@ -114,6 +116,7 @@ class Zoomeye(object):
 
         b = StringIO.StringIO()
         c = pycurl.Curl()
+        c.setopt(pycurl.CAINFO, certifi.where())
         c.setopt(pycurl.URL, url)
         c.setopt(pycurl.WRITEFUNCTION, b.write)
         c.setopt(pycurl.FOLLOWLOCATION, 1)
